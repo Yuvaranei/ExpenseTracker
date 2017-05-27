@@ -2,14 +2,7 @@
   "name": "expensetracker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "webpack-dev-server",
-	"postinstall" : "webpack -p",
-	"start" : "node server.js"
-  },
-  "author": "",
-  "license": "ISC",
+  "main": "server.js",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.24.1",
@@ -37,5 +30,19 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.6.0",
     "webpack-dev-server": "^2.4.5"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yuvaranei/ExpenseTracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yuvaranei/ExpenseTracker/issues"
+  },
+  "homepage": "https://github.com/Yuvaranei/ExpenseTracker#readme"
 }
