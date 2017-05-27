@@ -33,7 +33,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "postinstall" : "webpack -p",
+    "start" : "node server.js"
+
   },
   "repository": {
     "type": "git",
