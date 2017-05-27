@@ -1,0 +1,68 @@
+
+.category-container {
+    border : 1px solid #dfdfdf;
+    //margin: auto;
+    //width: 30%
+    
+   
+}
+
+h1
+{
+    text-align: center
+}
+
+.inputForm
+{
+    width:50%;
+    height: 30px
+
+}
+
+.formEntry
+{
+    margin: 10px;
+}
+ul{
+     list-style-type: none
+}
+
+table, tr, td, th
+{
+    border: 1px solid #efefef;
+    border-collapse: collapse
+}
+
+.nomargin
+{
+    margin: 0;
+}
+
+.navItem{
+    padding: 17px;
+    float: left;
+    font-size: medium;
+    text-decoration: none;
+    color: darkgrey;
+}
+
+.brandName{
+    float: left;
+    padding: 15px;
+    font-size: large;
+    text-decoration: none;
+    color: darkgrey;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}
+
+.home{
+    color : darkslateblue
+}
+
+.modal-body{
+    padding: 0px;
+}
