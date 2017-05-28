@@ -1,13 +1,13 @@
 # ExpenseTracker
 
 Expense Tracker provides the provision to
-> add custom category (by default there are default categories like Food, Entertainment, Sports,Shopping, Travel)
-> update existing category
-> delete category
-> add expenses (by providing category name, amount and date)
-> update expenses
-> delete expenses
-> view the amount spent chart on category basis
+1. add custom category (by default there are default categories like Food, Entertainment, Sports,Shopping, Travel)
+2. update existing category
+3. delete category
+4. add expenses (by providing category name, amount and date)
+5. update expenses
+6. delete expenses
+7. view the amount spent chart on category basis
 
 Not supported
 --------------
