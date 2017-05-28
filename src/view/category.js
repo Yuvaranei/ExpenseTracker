@@ -2,6 +2,7 @@ import React from 'react'
 import Constants from '../common/constants'
 import { DropdownButton, Table, Modal, OverlayTrigger, Button, ButtonToolbar } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
+import {dropWhile,remove} from 'lodash'
 
 export default class Category extends React.Component {
 
@@ -51,26 +52,54 @@ export default class Category extends React.Component {
             }
         });
         let categories = this.state.categories;
+        let prevCategoryName = categories[updateIndex].name;
         categories[updateIndex].name = this.state.categoryName;
         categories[updateIndex].checked = true;
+        let expenses = this.state.expenses
+        let that=this
+        expenses.map(function(item){
+            if(item.category === prevCategoryName){
+                item.category = that.state.categoryName
+            }
+        })
         localStorage.setItem("categories",JSON.stringify(categories))
-        this.setState({ categories, showModal: false, categoryName : "" });
+        localStorage.setItem("expenses",JSON.stringify(expenses))
+        console.log("Category list ==>> "+localStorage.getItem("categories"))
+        console.log("Expense list ==>> "+localStorage.getItem("expenses"))
+        this.setState({ categories, showModal: false, categoryName : "",expenses });
     }
 
     deleteCategory() {
         let deleteIndex = 0;
         let checkedIndex;
-        this.state.categories.map((item, index) => {
+        let categories = this.state.categories;
+        categories.map((item, index) => {
             if (item.checked == true) {
                 checkedIndex = index;
                 item.checked=false
                 deleteIndex = index;
             }
         });
-        let categories = this.state.categories;
+        
+        let deleteCategoryName = categories[deleteIndex].name;
+        console.log("Expense list BEFORE ==>> "+localStorage.getItem("expenses"))
+        let expenses = this.state.expenses
+        let that=this
+        _.remove(expenses, function(item) {
+                console.log("==>> "+item.category+" == "+deleteCategoryName)
+             return item.category === deleteCategoryName });
+        // expenses.map(function(item){
+        //     if(item.category === deleteCategoryName){
+        //         item.category = that.state.categoryName
+        //     }
+        // })
         categories.splice(deleteIndex, 1);
+        
         localStorage.setItem("categories",JSON.stringify(categories))
-        this.setState({ categories, disableUpdateDelete: true, categoryName : "" });
+        localStorage.setItem("expenses",JSON.stringify(expenses))
+        console.log("Category list ==>> "+localStorage.getItem("categories"))
+        console.log("Expense list ==>> "+localStorage.getItem("expenses"))
+        this.setState({ categories, disableUpdateDelete: true, categoryName : "",expenses });
     }
 
     handleRadio(event) {
