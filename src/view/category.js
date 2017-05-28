@@ -6,9 +6,7 @@ import DatePicker from 'react-datepicker';
 export default class Category extends React.Component {
 
     constructor() {
-        super()
-
-        
+        super()        
         this.state = {
             categoryName: "",
             categoryDescription: "",
@@ -19,9 +17,6 @@ export default class Category extends React.Component {
             disableUpdateDelete: true,
             disableAdd: true
         }
-    //     var testcategory = JSON.parse(localStorage.getItem("categories"))
-    //    // alert("Inside constructor Category "+ JSON.stringify(testcategory))
-    //     alert("Inside constructor Category "+ localStorage.getItem("categories"))
         this.categoryName = "";
         this.handleRadio = this.handleRadio.bind(this);
         this.deleteCategory = this.deleteCategory.bind(this);
@@ -74,7 +69,6 @@ export default class Category extends React.Component {
         });
         let categories = this.state.categories;
         categories.splice(deleteIndex, 1);
-        alert("check the index checked " +JSON.stringify(categories))
         localStorage.setItem("categories",JSON.stringify(categories))
         this.setState({ categories, disableUpdateDelete: true, categoryName : "" });
     }
@@ -84,7 +78,6 @@ export default class Category extends React.Component {
         let checkedCategory = "";
         let disableUpdateDelete = true;
         let categoryName = this.state.categories[event.target.id].name;
-        //alert("categories[updateIndex].name "+categoryName)
         categories.map((item, index) => {
             if (index == event.target.id) {
                 item.checked = true;

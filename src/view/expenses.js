@@ -5,9 +5,8 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 export default class Expenses extends Component {
-    constructor(props) {
-        super(props);
-        //alert("Inside constructor Category")
+    constructor() {
+        super();
         this.state = {
             expenses: JSON.parse(localStorage.getItem("expenses")),
             expenseAmount: "",
@@ -19,7 +18,6 @@ export default class Expenses extends Component {
             disableAdd: true
         }
         this.expenseCategory = "";
-        console.log("Expense category JSON = " + localStorage.getItem("expenses"))
         this.handleRadio = this.handleRadio.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.deleteExpense = this.deleteExpense.bind(this);
@@ -44,8 +42,7 @@ export default class Expenses extends Component {
         expenses[updateIndex].date_ms = "" + this.state.expenseDate;
         expenses[updateIndex].checked = false;
         localStorage.setItem("expenses", JSON.stringify(expenses))
-        //this.expenseCategory = ""
-        this.setState({ expenses, showModal: false ,expenseAmount : "",expenseDate : "" });
+        this.setState({ expenses, showModal: false, expenseAmount: "", expenseDate: "" });
     }
 
     deleteExpense() {
@@ -122,13 +119,10 @@ export default class Expenses extends Component {
         expenseEntry.date = this.state.expenseDate;
         expenseEntry.date_ms = "" + this.state.expenseDate;
         expenseEntry.checked = false;
-        console.log("date = " + this.state.expenseDate)
         let expenses = this.state.expenses;;
         expenses.push(expenseEntry);
-        console.log("Before storing in local storage = " + JSON.stringify(expenses))
         localStorage.setItem("expenses", JSON.stringify(expenses))
-        alert("Inside addExpense = "+JSON.stringify(this.state.categories))
-        this.setState({ expenses, showModal: false,expenseAmount : "",expenseDate : ""});
+        this.setState({ expenses, showModal: false, expenseAmount: "", expenseDate: "" });
     }
 
     handleDateChange(date) {
@@ -149,7 +143,6 @@ export default class Expenses extends Component {
             (<Button bsStyle="primary" value="Update" onClick={this.updateExpense}>Update</Button>)
         let dropdownItems = [];
         this.state.categories.map((item, index) => {
-            //alert("Inside map - display item "+JSON.stringify(item))
             if (index == 0)
                 this.expenseCategory = item.name;
 
@@ -162,7 +155,6 @@ export default class Expenses extends Component {
                 dropdownItems.push(<option key={index}>{item.name}</option>);
         })
 
-
         let tableData = [];
         if (this.state.expenses.length <= 0) {
             tableData.push(<tr><td><em>No expenses Added so far.. Click the button below to get started</em></td><td>-</td><td>-</td></tr>)
@@ -170,14 +162,9 @@ export default class Expenses extends Component {
         else {
             let that = this;
             this.state.expenses.map((item, index) => {
-
-                // let displayDate = new Date(item.date_ms*1000).toLocaleString()
-                // console.log("displayDate = "+displayDate)
                 var dateVal = "/Date(" + item.date_ms + ")/";
                 var myDate = new Date(parseFloat((dateVal).substr(6)))
                 let displayDate = myDate.toLocaleDateString()
-                console.log("Date in ms " + displayDate)
-                //document.write(myDate.toGMTString()+"<br>"+myDate.toLocaleString());
                 tableData.push(<tr key={index}><td><input name="expenseRadio" type="radio" checked={item.checked} id={index} onChange={that.handleRadio} />{item.category}</td><td>{item.amount}</td><td>{displayDate}</td></tr>);
             })
         }
@@ -214,11 +201,8 @@ export default class Expenses extends Component {
 
         return (
             <div className="col-md-12">
-
-
                 <header> <h1>Expenses Details</h1></header>
                 <section className="col-md-10">
-
                     <Table striped bordered condensed hover>
                         <thead>
                             <tr>
