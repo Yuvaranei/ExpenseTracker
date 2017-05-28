@@ -28,8 +28,6 @@ export default class Expenses extends Component {
     }
 
     updateExpense() {
-
-        alert("Inside updateExpense")
         let updateIndex = 0;
         this.state.expenses.map((item, index) => {
             if (item.checked == true) {
@@ -40,7 +38,6 @@ export default class Expenses extends Component {
         let expenses = this.state.expenses;
         expenses[updateIndex].category = this.expenseCategory;
         expenses[updateIndex].amount = this.state.expenseAmount;
-        //expenses[updateIndex].date = this.state.expenseDate;
         expenses[updateIndex].date_ms = "" + this.state.expenseDate;
         expenses[updateIndex].checked = false;
         localStorage.setItem("expenses", JSON.stringify(expenses))
@@ -63,7 +60,6 @@ export default class Expenses extends Component {
     }
 
     handleRadio(event) {
-        alert("Inside handleRadio")
         let expenses = this.state.expenses;
         let checkedCategory = "";
         let expenseDate = moment();
@@ -82,7 +78,6 @@ export default class Expenses extends Component {
                 item.checked = false;
         })
 
-        console.log('Inside handleRadio  ==>> '+JSON.stringify(expenses))
         let categories = this.state.categories;
         categories.map((item) => {
             if (item.name == checkedCategory) {
@@ -121,7 +116,6 @@ export default class Expenses extends Component {
         let expenseEntry = {};
         expenseEntry.category = this.expenseCategory;
         expenseEntry.amount = this.state.expenseAmount;
-        //expenseEntry.date = this.state.expenseDate;
         expenseEntry.date_ms = "" + this.state.expenseDate;
         expenseEntry.checked = false;
         let expenses = this.state.expenses;;

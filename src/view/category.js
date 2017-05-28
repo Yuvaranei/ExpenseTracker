@@ -2,12 +2,12 @@ import React from 'react'
 import Constants from '../common/constants'
 import { DropdownButton, Table, Modal, OverlayTrigger, Button, ButtonToolbar } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
-import {dropWhile,remove} from 'lodash'
+import { dropWhile, remove } from 'lodash'
 
 export default class Category extends React.Component {
 
     constructor() {
-        super()        
+        super()
         this.state = {
             categoryName: "",
             categoryDescription: "",
@@ -40,8 +40,8 @@ export default class Category extends React.Component {
         categoryEntry.default = false;
         let categories = this.state.categories;
         categories.push(categoryEntry);
-        localStorage.setItem("categories",JSON.stringify(categories))
-        this.setState({ categories, showModal: false, categoryName : "" });        
+        localStorage.setItem("categories", JSON.stringify(categories))
+        this.setState({ categories, showModal: false, categoryName: "" });
     }
 
     updateCategory() {
@@ -56,17 +56,15 @@ export default class Category extends React.Component {
         categories[updateIndex].name = this.state.categoryName;
         categories[updateIndex].checked = true;
         let expenses = this.state.expenses
-        let that=this
-        expenses.map(function(item){
-            if(item.category === prevCategoryName){
+        let that = this
+        expenses.map(function (item) {
+            if (item.category === prevCategoryName) {
                 item.category = that.state.categoryName
             }
         })
-        localStorage.setItem("categories",JSON.stringify(categories))
-        localStorage.setItem("expenses",JSON.stringify(expenses))
-        console.log("Category list ==>> "+localStorage.getItem("categories"))
-        console.log("Expense list ==>> "+localStorage.getItem("expenses"))
-        this.setState({ categories, showModal: false, categoryName : "",expenses });
+        localStorage.setItem("categories", JSON.stringify(categories))
+        localStorage.setItem("expenses", JSON.stringify(expenses))
+        this.setState({ categories, showModal: false, categoryName: "", expenses });
     }
 
     deleteCategory() {
@@ -76,30 +74,19 @@ export default class Category extends React.Component {
         categories.map((item, index) => {
             if (item.checked == true) {
                 checkedIndex = index;
-                item.checked=false
+                item.checked = false
                 deleteIndex = index;
             }
         });
-        
+
         let deleteCategoryName = categories[deleteIndex].name;
-        console.log("Expense list BEFORE ==>> "+localStorage.getItem("expenses"))
         let expenses = this.state.expenses
-        let that=this
-        _.remove(expenses, function(item) {
-                console.log("==>> "+item.category+" == "+deleteCategoryName)
-             return item.category === deleteCategoryName });
-        // expenses.map(function(item){
-        //     if(item.category === deleteCategoryName){
-        //         item.category = that.state.categoryName
-        //     }
-        // })
+        let that = this
+        _.remove(expenses, function (item) { return item.category === deleteCategoryName });
         categories.splice(deleteIndex, 1);
-        
-        localStorage.setItem("categories",JSON.stringify(categories))
-        localStorage.setItem("expenses",JSON.stringify(expenses))
-        console.log("Category list ==>> "+localStorage.getItem("categories"))
-        console.log("Expense list ==>> "+localStorage.getItem("expenses"))
-        this.setState({ categories, disableUpdateDelete: true, categoryName : "",expenses });
+        localStorage.setItem("categories", JSON.stringify(categories))
+        localStorage.setItem("expenses", JSON.stringify(expenses))
+        this.setState({ categories, disableUpdateDelete: true, categoryName: "", expenses });
     }
 
     handleRadio(event) {
@@ -198,9 +185,9 @@ export default class Category extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <hr/>
+                <hr />
                 <footer className="col-md-12 nomargin">
-                <hr/>
+                    <hr />
                     <div>&copy; 2017 Expense Tracker</div>
                 </footer>
             </div>

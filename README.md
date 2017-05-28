@@ -9,7 +9,10 @@ Expense Tracker provides the provision to
 6. delete expenses
 7. view the amount spent chart on category basis
 
-Not supported
---------------
-No interoperability between the modules (eg. expense page with categories available, 
-and on updating the category details, changes will not be reflected in the available expense entry)
+Steps to execute
+-----------------------
+1. Install npm
+2. Clone the repo
+3. Cd to cloned directory
+4. npm install --save
+5. npm run dev
