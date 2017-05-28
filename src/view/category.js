@@ -42,10 +42,10 @@ export default class Category extends React.Component {
         categoryEntry.name = this.state.categoryName;
         categoryEntry.checked = false;
         categoryEntry.default = false;
-        let categories = this.state.categories;;
+        let categories = this.state.categories;
         categories.push(categoryEntry);
         localStorage.setItem("categories",JSON.stringify(categories))
-        this.setState({ categories, showModal: false });        
+        this.setState({ categories, showModal: false, categoryName : "" });        
     }
 
     updateCategory() {
@@ -57,29 +57,34 @@ export default class Category extends React.Component {
         });
         let categories = this.state.categories;
         categories[updateIndex].name = this.state.categoryName;
-        categories[updateIndex].checked = false;
+        categories[updateIndex].checked = true;
         localStorage.setItem("categories",JSON.stringify(categories))
-        this.setState({ categories, showModal: false });
+        this.setState({ categories, showModal: false, categoryName : "" });
     }
 
     deleteCategory() {
         let deleteIndex = 0;
+        let checkedIndex;
         this.state.categories.map((item, index) => {
             if (item.checked == true) {
+                checkedIndex = index;
+                item.checked=false
                 deleteIndex = index;
             }
         });
         let categories = this.state.categories;
         categories.splice(deleteIndex, 1);
+        alert("check the index checked " +JSON.stringify(categories))
         localStorage.setItem("categories",JSON.stringify(categories))
-        this.setState({ categories, disableUpdateDelete: true });
+        this.setState({ categories, disableUpdateDelete: true, categoryName : "" });
     }
 
     handleRadio(event) {
         let categories = this.state.categories;
         let checkedCategory = "";
         let disableUpdateDelete = true;
-        let categoryName = "";
+        let categoryName = this.state.categories[event.target.id].name;
+        //alert("categories[updateIndex].name "+categoryName)
         categories.map((item, index) => {
             if (index == event.target.id) {
                 item.checked = true;
@@ -96,7 +101,7 @@ export default class Category extends React.Component {
         let category_list = [];
         let that = this
         this.state.categories.map(function (item, index) {
-            category_list.push(<tr key={index}><td><input name="categoryRadio" type="radio" id={index} onChange={that.handleRadio} />{item.name}</td></tr>)
+            category_list.push(<tr key={index}><td><input name="categoryRadio" checked={item.checked} type="radio" id={index} onChange={that.handleRadio} />{item.name}</td></tr>)
         })
 
         let modalTitle = ""
