@@ -9,14 +9,23 @@ import '../styles/main.scss'
 import { Router, Route, Link, browserHistory, IndexRoute, hashHistory } from 'react-router'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import Constants from './common/constants'
+import {Provider} from 'react-redux'
+import store from './store'
+import {setCategoryData} from './action-creators/expensetrackerActions'
 
 class Index extends React.Component {
 
   constructor() {
     super()
-    localStorage.setItem("categories", JSON.stringify(Constants.DEFAULT_CATEGORY))
-    localStorage.setItem("expenses", JSON.stringify([]))
+    // localStorage.setItem("categories", JSON.stringify(Constants.DEFAULT_CATEGORY))
+    // localStorage.setItem("expenses", JSON.stringify([]))
   }
+
+  componentWillMount(){
+    setCategoryData(Constants.DEFAULT_CATEGORY)
+    console.log("Initial category is set")
+  }
+
   render() {
 
     let topNavigation = <Navbar inverse collapseOnSelect>
@@ -44,15 +53,17 @@ class Index extends React.Component {
 
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/" component={Index}>
-      <IndexRoute component={Home} />
-      <Route path="home" component={Home} />
-      <Route path="category" component={Category} />
-      <Route path="expense" component={Expenses} />
-      <Route path="report" component={Report} />
-    </Route>
-  </Router>, document.getElementById("container")
+  <Provider store={store}>
+    <Router history={hashHistory}>
+      <Route path="/" component={Index}>
+        <IndexRoute component={Home} />
+        <Route path="home" component={Home} />
+        <Route path="category" component={Category} />
+        <Route path="expense" component={Expenses} />
+        <Route path="report" component={Report} />
+      </Route>
+    </Router>
+  </Provider>, document.getElementById("container")
 );
 
 

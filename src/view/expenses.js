@@ -4,15 +4,20 @@ import { DropdownButton, Table, Modal, OverlayTrigger, Button, ButtonToolbar } f
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
-export default class Expenses extends Component {
-    constructor() {
-        super();
+import {setExpenseData} from '../action-creators/expensetrackerActions'
+import {connect} from 'react-redux'
+
+class Expenses extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
-            expenses: JSON.parse(localStorage.getItem("expenses")),
+            //expenses: JSON.parse(localStorage.getItem("expenses")),
+            expenses: this.props.expenseData,
             expenseAmount: "",
             showModal: false,
             expenseDate: moment(),
-            categories: JSON.parse(localStorage.getItem("categories")),
+            //categories: JSON.parse(localStorage.getItem("categories")),
+            categories: this.props.categoryData,
             addExpenseFlag: false,
             disableUpdateDelete: true,
             disableAdd: true
@@ -40,7 +45,8 @@ export default class Expenses extends Component {
         expenses[updateIndex].amount = this.state.expenseAmount;
         expenses[updateIndex].date_ms = "" + this.state.expenseDate;
         expenses[updateIndex].checked = false;
-        localStorage.setItem("expenses", JSON.stringify(expenses))
+        //localStorage.setItem("expenses", JSON.stringify(expenses))
+        setExpenseData(expenses)
         this.setState({ expenses, showModal: false, expenseAmount: "", expenseDate: moment() });
     }
 
@@ -55,7 +61,8 @@ export default class Expenses extends Component {
 
         let expenses = this.state.expenses;
         expenses.splice(deleteIndex, 1);
-        localStorage.setItem("expenses", JSON.stringify(expenses))
+        //localStorage.setItem("expenses", JSON.stringify(expenses))
+        setExpenseData(expenses)
         this.setState({ expenses, disableUpdateDelete: true });
     }
 
@@ -93,15 +100,11 @@ export default class Expenses extends Component {
         this.expenseCategory = event.target.value;
         let categories = this.state.categories;
         categories.map((item, index) => {
-            if (item.name == event.target.value) {
+            if (item.name == event.target.value)
                 item.selected = true;
-            }
             else
                 item.selected = false;
-        }
-
-        )
-
+        })
         this.setState({ categories });
     }
 
@@ -120,12 +123,12 @@ export default class Expenses extends Component {
         expenseEntry.checked = false;
         let expenses = this.state.expenses;;
         expenses.push(expenseEntry);
-        localStorage.setItem("expenses", JSON.stringify(expenses))
+        //localStorage.setItem("expenses", JSON.stringify(expenses))
+        setExpenseData(expenses)
         this.setState({ expenses, showModal: false, expenseAmount: "", expenseDate: moment() });
     }
 
     handleDateChange(date) {
-
         this.setState({ expenseDate: date });
     }
 
@@ -254,8 +257,14 @@ export default class Expenses extends Component {
                     <hr />
                     <div>&copy; 2017 Expense Tracker</div>
                 </footer>
-
             </div>
         )
     }
 }
+
+export default connect(state => (
+    {
+        expenseData : state.expensetrackerReducer.expenseAmount,
+        categoryData : state.expensetrackerReducer.categoryData
+    }
+))

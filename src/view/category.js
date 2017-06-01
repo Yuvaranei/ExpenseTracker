@@ -3,17 +3,21 @@ import Constants from '../common/constants'
 import { DropdownButton, Table, Modal, OverlayTrigger, Button, ButtonToolbar } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { dropWhile, remove } from 'lodash'
+import {setCategoryData,setExpenseData} from '../action-creators/expensetrackerActions'
+import {connect} from 'react-redux'
 
-export default class Category extends React.Component {
+class Category extends React.Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             categoryName: "",
             categoryDescription: "",
             showModal: false,
-            categories: JSON.parse(localStorage.getItem("categories")),
-            expenses: JSON.parse(localStorage.getItem("expenses")),
+            // categories: JSON.parse(localStorage.getItem("categories")),
+            // expenses: JSON.parse(localStorage.getItem("expenses")),
+            categories: this.props.categoryData,
+            expenses: this.props.expenseData,
             addCategoryFlag: false,
             disableUpdateDelete: true,
             disableAdd: true
@@ -40,7 +44,8 @@ export default class Category extends React.Component {
         categoryEntry.default = false;
         let categories = this.state.categories;
         categories.push(categoryEntry);
-        localStorage.setItem("categories", JSON.stringify(categories))
+        //localStorage.setItem("categories", JSON.stringify(categories))
+        setCategoryData(categories)
         this.setState({ categories, showModal: false, categoryName: "" });
     }
 
@@ -62,8 +67,10 @@ export default class Category extends React.Component {
                 item.category = that.state.categoryName
             }
         })
-        localStorage.setItem("categories", JSON.stringify(categories))
-        localStorage.setItem("expenses", JSON.stringify(expenses))
+        // localStorage.setItem("categories", JSON.stringify(categories))
+        // localStorage.setItem("expenses", JSON.stringify(expenses))
+       setCategoryData(categories)
+       setExpenseData(expenses)
         this.setState({ categories, showModal: false, categoryName: "", expenses });
     }
 
@@ -84,8 +91,10 @@ export default class Category extends React.Component {
         let that = this
         _.remove(expenses, function (item) { return item.category === deleteCategoryName });
         categories.splice(deleteIndex, 1);
-        localStorage.setItem("categories", JSON.stringify(categories))
-        localStorage.setItem("expenses", JSON.stringify(expenses))
+        // localStorage.setItem("categories", JSON.stringify(categories))
+        // localStorage.setItem("expenses", JSON.stringify(expenses))
+        setCategoryData(categories)
+        setExpenseData(expenses)
         this.setState({ categories, disableUpdateDelete: true, categoryName: "", expenses });
     }
 
@@ -194,3 +203,10 @@ export default class Category extends React.Component {
         )
     }
 }
+
+export default connect(state =>  (
+    {
+        expenseData : state.expensetrackerReducer.expenseData,
+        categoryData : state.expensetrackerReducer.categoryData
+    }
+))

@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactHighcharts from 'react-highcharts'
 import Highcharts from 'highcharts'
+import {connect} from 'react-redux'
 
-export default class ReactChart extends React.Component {
+class ReactChart extends React.Component {
     constructor(props) {
         super(props)
 
-        let expenses = JSON.parse(localStorage.getItem("expenses"))
+        //let expenses = JSON.parse(localStorage.getItem("expenses"))
+        let expenses = this.props.expenseData
         let reportMap = new Map()
         expenses.map(function (item) {
             if (!reportMap.has(item.category)) {
@@ -63,3 +65,9 @@ export default class ReactChart extends React.Component {
         )
     }
 }
+
+export default connect(state => (
+    {
+        expenseData : state.expensetrackerReducer.expenseData
+    }
+))
