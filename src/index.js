@@ -10,8 +10,10 @@ import { Router, Route, Link, browserHistory, IndexRoute, hashHistory } from 're
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import Constants from './common/constants'
 import {Provider} from 'react-redux'
-import store from './store'
+import {store} from './store'
 import {setCategoryData} from './action-creators/expensetrackerActions'
+import { syncHistoryWithStore} from 'react-router-redux'
+const history = syncHistoryWithStore(hashHistory, store)
 
 class Index extends React.Component {
 
@@ -23,7 +25,6 @@ class Index extends React.Component {
 
   componentWillMount(){
     setCategoryData(Constants.DEFAULT_CATEGORY)
-    console.log("Initial category is set")
   }
 
   render() {
@@ -54,7 +55,7 @@ class Index extends React.Component {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={history}>
       <Route path="/" component={Index}>
         <IndexRoute component={Home} />
         <Route path="home" component={Home} />

@@ -1,4 +1,11 @@
-import {createStore} from 'redux'
-import reducer from './rootReducer'
+import { createStore, combineReducers } from 'redux'
+import reducers from './reducers/expensetrackerReducer'
+import {routerReducer} from 'react-router-redux'
 
-export default createStore(reducer)
+
+export const store = createStore(
+  combineReducers({
+    reducers,
+    routing: routerReducer
+  })
+)

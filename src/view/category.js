@@ -206,7 +206,7 @@ class Category extends React.Component {
 
 export default connect(state =>  (
     {
-        expenseData : state.expensetrackerReducer.expenseData,
-        categoryData : state.expensetrackerReducer.categoryData
+        expenseData : state.reducers.expenseData,
+        categoryData : state.reducers.categoryData
     }
-))
+))(Category)

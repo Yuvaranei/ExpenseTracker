@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 class ReactChart extends React.Component {
     constructor(props) {
         super(props)
-
         //let expenses = JSON.parse(localStorage.getItem("expenses"))
         let expenses = this.props.expenseData
         let reportMap = new Map()
@@ -68,6 +67,6 @@ class ReactChart extends React.Component {
 
 export default connect(state => (
     {
-        expenseData : state.expensetrackerReducer.expenseData
+        expenseData : state.reducers.expenseData
     }
-))
+))(ReactChart)

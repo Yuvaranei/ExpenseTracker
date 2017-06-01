@@ -264,7 +264,7 @@ class Expenses extends Component {
 
 export default connect(state => (
     {
-        expenseData : state.expensetrackerReducer.expenseAmount,
-        categoryData : state.expensetrackerReducer.categoryData
+        expenseData : state.reducers.expenseData,
+        categoryData : state.reducers.categoryData
     }
-))
+))(Expenses)
